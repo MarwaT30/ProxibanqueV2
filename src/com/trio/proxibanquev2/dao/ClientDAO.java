@@ -8,10 +8,25 @@ import com.trio.proxibanquev2.domaine.Adresse;
 import com.trio.proxibanquev2.domaine.Client;
 import com.trio.proxibanquev2.domaine.Conseiller;
 
+/**
+ * Celle classe permet le dialoque entre le programme et la base de données,
+ * concernant le CRUD des clients.
+ * 
+ * @author Thomas T
+ *
+ */
 public class ClientDAO {
 
 	ConnexionDB connexion = new ConnexionDB();
 
+	/**
+	 * Cette méthode eprmet d'écrire un client dans la base de données
+	 * 'proxibanquev2'. Cette méthode prend en paramètre :
+	 * 
+	 * @param client
+	 *            : le client à enregister
+	 * @returnun boulean de manière à vérifier l'écriture du client dans la BD.
+	 */
 	public boolean ecrireUnClient(Client client) {
 		int result = 0;
 		String prenom = client.getPrenom();
@@ -23,8 +38,8 @@ public class ClientDAO {
 		int adresse = adresseDao.lireIdDeLaDerniereAdresse();
 		int conseiller = client.getConseiller().getIdConseiller();
 
-		String sql = "INSERT INTO Client (nom, prenom, adresse, telephone, mail, conseiller) VALUES ('"+ nom
-				+ "', '" + prenom + "', " + adresse + ", '" + telephone + "', '" + mail + "', " + conseiller + ")";
+		String sql = "INSERT INTO Client (nom, prenom, adresse, telephone, mail, conseiller) VALUES ('" + nom + "', '"
+				+ prenom + "', " + adresse + ", '" + telephone + "', '" + mail + "', " + conseiller + ")";
 
 		// Etape 4 : exécution d'une requete
 
@@ -47,6 +62,13 @@ public class ClientDAO {
 
 	}
 
+	/**
+	 * Cette méthode permet de lire un client avec comme paramètre d'entrée :
+	 * 
+	 * @param idClient
+	 *            : l'id du client
+	 * @return un objet de type client
+	 */
 	public Client lireUnClient(int idClient) {
 		ResultSet rs = null;
 
@@ -82,6 +104,8 @@ public class ClientDAO {
 				client.setAdresse(adresseDao.lireUneAdresse(adresse));
 				ConseillerDAO conseillerDao = new ConseillerDAO();
 				client.setConseiller(conseillerDao.lireUnConseillerById(idConseiller));
+				CompteBancaireDAO compteBancaireDao = new CompteBancaireDAO();
+				client.setListeCompte(compteBancaireDao.lireTousLesComptesBancaireDunClient(client));
 			}
 
 		} catch (SQLException e) {
@@ -98,6 +122,15 @@ public class ClientDAO {
 		return client;
 
 	}
+
+	/**
+	 * Cette méthode permet de mettre à jour un client dans une BD. Elle prend
+	 * comme paramètre :
+	 * 
+	 * @param client
+	 *            : le client à modifier
+	 * @return un boulean pour vérifier l'écriture du client dans la BD.
+	 */
 	public boolean modifierUnClient(Client client) {
 		int result = 0;
 		int idClient = client.getIdClient();
@@ -105,14 +138,11 @@ public class ClientDAO {
 		String nom = client.getNom();
 		String mail = client.getMail();
 		Adresse adresse = client.getAdresse();
-		
+
 		AdresseDAO adresseDao = new AdresseDAO();
 
-
-
-		String sql = "UPDATE Client SET nom = '" + nom + "', prenom = '" + prenom + "', mail = '" + mail + "' WHERE idClient = " + idClient;
-				
-
+		String sql = "UPDATE Client SET nom = '" + nom + "', prenom = '" + prenom + "', mail = '" + mail
+				+ "' WHERE idClient = " + idClient;
 
 		// Etape 4 : exécution d'une requete
 
@@ -135,18 +165,30 @@ public class ClientDAO {
 			return true;
 
 	}
+
+	/**
+	 * Cette méthode permet de supprimer un client dans une BD. Cette méthode
+	 * appelle les méthodes correspondantes pour la suppression de l'adresse et
+	 * des comptes de ce clients
+	 * 
+	 * @param client
+	 *            : le client à supprimer
+	 * @returnun boulean pour vérifier la suppression du client de la BD.
+	 */
 	public boolean supprimerUnClientDansUneBase(Client client) {
 
 		int result = 0;
 		int idClient = client.getIdClient();
 		String sql = "DELETE FROM Client WHERE idClient = " + idClient;
+		CompteBancaireDAO compteBancaireDao = new CompteBancaireDAO();
 		AdresseDAO adresseDao = new AdresseDAO();
 		Adresse adresse = client.getAdresse();
 
 		try {
 			result = connexion.creationConnexionBD().executeUpdate(sql);
 			adresseDao.supprimerUneAdresseDansUneBase(adresse);
-			
+			compteBancaireDao.supprimerLesComptesDunClientDansUneBase(client);
+
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -160,8 +202,15 @@ public class ClientDAO {
 			return true;
 
 	}
-	
 
+	/**
+	 * Cette méthode permet la création d'une liste de tous les clients d'un
+	 * conseiller.
+	 * 
+	 * @param conseiller
+	 *            : le conseiller dont on veut la liste
+	 * @return une liste d'objet de type client
+	 */
 	public ArrayList<Client> lireTousLesClientsDunConseiller(Conseiller conseiller) {
 
 		ResultSet rs = null;
@@ -213,6 +262,11 @@ public class ClientDAO {
 
 	}
 
+	/**
+	 * Cette méthode permet d'obtenir une liste de tous les clients de la BD
+	 * 
+	 * @return une liste d'objets de type client
+	 */
 	public ArrayList<Client> lireTousLesClientsDansUneBase() {
 
 		ResultSet rs = null;

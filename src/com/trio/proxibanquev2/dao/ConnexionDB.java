@@ -5,6 +5,12 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+/**
+ * Classe permettant la connexion à la base de données proxibanquev2 sur mySQL.
+ * 
+ * @author Thomas T
+ *
+ */
 public class ConnexionDB {
 	static String url = "jdbc:mysql://localhost:3306/proxibanquev2?useSSL=false";
 	static String login = "root";
@@ -12,6 +18,11 @@ public class ConnexionDB {
 	static Connection cn = null;
 	static Statement st = null;
 
+	/**
+	 * Cette méthode permet la connexion à la base de données
+	 * 
+	 * @return st : statement
+	 */
 	public Statement creationConnexionBD() {
 
 		try {
@@ -29,19 +40,22 @@ public class ConnexionDB {
 		}
 		return st;
 	}
-	
-	
-	public void finConnexionBD(){
-		
-			{
-				 try {
-				 // Etape 5 : libérer ressources de la mémoire
-				 cn.close();
-				 st.close();
-				 } catch (SQLException e) {
-				 e.printStackTrace();
-				 }
-			} 
+
+	/**
+	 * Cette méthode permet de clore les variable de connexion et statement.
+	 * 
+	 */
+	public void finConnexionBD() {
+
+		{
+			try {
+				// Etape 5 : libérer ressources de la mémoire
+				cn.close();
+				st.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 
 }

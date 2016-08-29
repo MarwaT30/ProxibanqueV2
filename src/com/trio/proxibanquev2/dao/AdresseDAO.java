@@ -6,9 +6,25 @@ import java.util.ArrayList;
 
 import com.trio.proxibanquev2.domaine.Adresse;
 
+/**
+ * Celle classe permet le dialoque entre le programme et la base de données,
+ * concernant le CRUD des adresses.
+ * 
+ * @author Thomas T
+ *
+ */
 public class AdresseDAO {
 	ConnexionDB connexion = new ConnexionDB();
 
+	/**
+	 * Cette méthode eprmet d'écrire une adresse dans la table du même nom de la
+	 * base de données 'proxibanquev2'. Cette méthode prend en paramètre :
+	 * 
+	 * @param adresse
+	 *            : une adresse
+	 * @return un boulean de manière à vérifier l'écriture de l'adresse dans la
+	 *         BD.
+	 */
 	public boolean ecrireUneAdresse(Adresse adresse) {
 		int result = 0;
 		String numRue = adresse.getNumRue();
@@ -19,8 +35,8 @@ public class AdresseDAO {
 
 		// TODO
 
-		String sql = "INSERT INTO Adresse (numRue, typeDeRue, nomDeRue, codePostal, ville) VALUES ('"+ numRue
-				+ "', '" + typeDeRue + "', '" + nomDeRue + "', " + codePostal + ", '" + ville + "')";
+		String sql = "INSERT INTO Adresse (numRue, typeDeRue, nomDeRue, codePostal, ville) VALUES ('" + numRue + "', '"
+				+ typeDeRue + "', '" + nomDeRue + "', " + codePostal + ", '" + ville + "')";
 
 		// Etape 4 : exécution d'une requete
 
@@ -43,6 +59,12 @@ public class AdresseDAO {
 
 	}
 
+	/**
+	 * Cette méthode permet de lire l'id de la dernière adresse entrée (id max
+	 * suite à l'auto-incrément).
+	 * 
+	 * @return idAdresse
+	 */
 	public int lireIdDeLaDerniereAdresse() {
 		ResultSet rs = null;
 
@@ -76,6 +98,13 @@ public class AdresseDAO {
 
 	}
 
+	/**
+	 * Cette méthode permet de lire une adresse avec comme paramètre d'entrée :
+	 * 
+	 * @param adresse
+	 *            : c'est l'idAdresse.
+	 * @return un objet de type Adresse
+	 */
 	public Adresse lireUneAdresse(int adresse) {
 		ResultSet rs = null;
 
@@ -93,7 +122,7 @@ public class AdresseDAO {
 		try {
 			while (rs.next()) {
 
-				int idAdresse= rs.getInt("idAdresse");
+				int idAdresse = rs.getInt("idAdresse");
 				String numRue = rs.getString("numRue");
 				String typeDeRue = rs.getString("typeDeRue");
 				String nomDeRue = rs.getString("nomDeRue");
@@ -124,6 +153,14 @@ public class AdresseDAO {
 
 	}
 
+	/**
+	 * Cette méthode permet de mettre à jour une adresse dans une BD. Elle prend
+	 * comme paramètre :
+	 * 
+	 * @param adresse
+	 *            : l'adresse mise à jour.
+	 * @return un boulean pour vérifier l'écriture de l'adresse dans la BD.
+	 */
 	public boolean modifierUneAdresseById(Adresse adresse) {
 		int result = 0;
 		int idAdresse = adresse.getIdAdresse();
@@ -136,8 +173,6 @@ public class AdresseDAO {
 		String sql = "UPDATE Adresse SET numRue = '" + numRue + "', typeDeRue = '" + typeDeRue + "', nomDeRue = '"
 				+ nomDeRue + "', codePostal = " + codePostal + ", ville = '" + ville + "' WHERE idAdresse = "
 				+ idAdresse;
-
-		// Etape 4 : exécution d'une requete
 
 		try {
 			result = connexion.creationConnexionBD().executeUpdate(sql);
@@ -157,6 +192,14 @@ public class AdresseDAO {
 			return true;
 
 	}
+
+	/**
+	 * Cette méthode permet de supprimer une adresse dans une BD
+	 * 
+	 * @param adresse
+	 *            : l'adresse à supprimer
+	 * @return un boulean pour vérifier la suppression de l'adresse dans la BD.
+	 */
 	public boolean supprimerUneAdresseDansUneBase(Adresse adresse) {
 
 		int result = 0;
@@ -166,7 +209,7 @@ public class AdresseDAO {
 		try {
 			result = connexion.creationConnexionBD().executeUpdate(sql);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+
 			e.printStackTrace();
 		} finally {
 			connexion.finConnexionBD();
@@ -178,7 +221,13 @@ public class AdresseDAO {
 			return true;
 
 	}
-	
+
+	/**
+	 * Cette méthode permet d'obtenir une liste de toutes les adresses dans la
+	 * base de données.
+	 * 
+	 * @return une liste d'adresses.
+	 */
 	public ArrayList<Adresse> lireToutesLesAdressesDansUneBase() {
 
 		ResultSet rs = null;

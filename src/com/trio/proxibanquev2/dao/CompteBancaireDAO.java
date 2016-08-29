@@ -12,9 +12,27 @@ import com.trio.proxibanquev2.domaine.CompteCourant;
 import com.trio.proxibanquev2.domaine.CompteEpargne;
 import com.trio.proxibanquev2.domaine.Conseiller;
 
+/**
+ * ClasseCelle classe permet le dialoque entre le programme et la base de
+ * données, concernant le CRUD des comptes bancaires.
+ * 
+ * @author Thomas T
+ *
+ */
 public class CompteBancaireDAO {
 	ConnexionDB connexion = new ConnexionDB();
 
+	/**
+	 * Cette méthode eprmet d'écrire un compte courant dans la base de données
+	 * 'proxibanquev2'. Cette méthode prend en paramètre :
+	 * 
+	 * @param compte
+	 *            : le compte à enregistrer
+	 * @param idClient
+	 *            : l'id du client à qui appartient le compte
+	 * @returnun boulean de manière à vérifier l'écriture de l'adresse dans la
+	 *           BD.
+	 */
 	public boolean ecrireUnCompte(CompteCourant compte, int idClient) {
 		int result = 0;
 
@@ -47,6 +65,17 @@ public class CompteBancaireDAO {
 
 	}
 
+	/**
+	 * Cette méthode eprmet d'écrire un compte épargne dans la base de données
+	 * 'proxibanquev2'. Cette méthode prend en paramètre :
+	 * 
+	 * @param compte
+	 *            : le compte à enregistrer
+	 * @param idClient
+	 *            : l'id du client à qui appartient le compte
+	 * @returnun boulean de manière à vérifier l'écriture de l'adresse dans la
+	 *           BD.
+	 */
 	public boolean ecrireUnCompte(CompteEpargne compte, int idClient) {
 		int result = 0;
 
@@ -79,6 +108,14 @@ public class CompteBancaireDAO {
 
 	}
 
+	/**
+	 * Cette méthode permet de lire un compte courant avec comme paramètre
+	 * d'entrée :
+	 * 
+	 * @param idCompte
+	 *            : l'id du compte
+	 * @return un objet de type compte courant
+	 */
 	public CompteCourant lireUnCompteCourant(int idCompte) {
 		ResultSet rs = null;
 
@@ -127,6 +164,14 @@ public class CompteBancaireDAO {
 
 	}
 
+	/**
+	 * Cette méthode permet de lire un compte épargne avec comme paramètre
+	 * d'entrée :
+	 * 
+	 * @param idCompte
+	 *            : l'id du compte
+	 * @return un objet de type compte épargne
+	 */
 	public CompteEpargne lireUnCompteEpargne(int idCompte) {
 		ResultSet rs = null;
 
@@ -175,6 +220,14 @@ public class CompteBancaireDAO {
 
 	}
 
+	/**
+	 * Cette méthode permet de mettre à jour un compte courant dans une BD. Elle
+	 * prend comme paramètre :
+	 * 
+	 * @param compte
+	 *            : le compte à modifier
+	 * @return un boulean pour vérifier l'écriture du compte courant dans la BD.
+	 */
 	public boolean modifierUnCompte(CompteCourant compte) {
 		int result = 0;
 		int idCompte = compte.getIdCompte();
@@ -205,6 +258,14 @@ public class CompteBancaireDAO {
 
 	}
 
+	/**
+	 * Cette méthode permet de mettre à jour un compte épargne dans une BD. Elle
+	 * prend comme paramètre :
+	 * 
+	 * @param compte
+	 *            : le compte à modifier
+	 * @return un boulean pour vérifier l'écriture du compte épargne dans la BD.
+	 */
 	public boolean modifierUnCompte(CompteEpargne compte) {
 		int result = 0;
 		int idCompte = compte.getIdCompte();
@@ -235,6 +296,15 @@ public class CompteBancaireDAO {
 
 	}
 
+	/**
+	 * Cette méthode permet de supprimer un compte courant d'une BD. Elle prend
+	 * comme paramètre :
+	 * 
+	 * @param compte
+	 *            : le compte à supprimer
+	 * @return un boulean qui permet de vérifier la suppression du compte de la
+	 *         BD.
+	 */
 	public boolean supprimerUnCompteDansUneBase(CompteCourant compte) {
 
 		int result = 0;
@@ -258,6 +328,15 @@ public class CompteBancaireDAO {
 
 	}
 
+	/**
+	 * Cette méthode permet de supprimer un compte épargne d'une BD. Elle prend
+	 * comme paramètre :
+	 * 
+	 * @param compte
+	 *            : le compte à supprimer
+	 * @return un boulean qui permet de vérifier la suppression du compte de la
+	 *         BD.
+	 */
 	public boolean supprimerUnCompteDansUneBase(CompteEpargne compte) {
 
 		int result = 0;
@@ -281,6 +360,47 @@ public class CompteBancaireDAO {
 
 	}
 
+	/**
+	 * Cette méthode permet de supprimer les comptes d'unn client de la BD. Elle
+	 * prend comme paramètre :
+	 * 
+	 * @param client
+	 *            : le client dont on veut supprimer les comptes : le compte à
+	 *            supprimer
+	 * @return un boulean qui permet de vérifier la suppression des comptes de
+	 *         la BD.
+	 */
+	public boolean supprimerLesComptesDunClientDansUneBase(Client client) {
+
+		int result = 0;
+		int idClient = client.getIdClient();
+		String sql = "DELETE FROM comptebancaire WHERE idClient = " + idClient;
+
+		try {
+			result = connexion.creationConnexionBD().executeUpdate(sql);
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			connexion.finConnexionBD();
+		}
+
+		if (result == 0) {
+			return false;
+		} else
+			return true;
+
+	}
+
+	/**
+	 * Cette méthod epermet de créer une liste de tous les comptes bancaires
+	 * d'un client
+	 * 
+	 * @param client
+	 *            : le client dont on veut la liste des comptes
+	 * @return une liste d'objet de type compte bancaire.
+	 */
 	public ArrayList<CompteBancaire> lireTousLesComptesBancaireDunClient(Client client) {
 
 		ResultSet rs = null;

@@ -5,9 +5,18 @@ import java.sql.SQLException;
 
 import com.trio.proxibanquev2.domaine.Conseiller;
 
+/**Celle classe permet le dialoque entre le programme et la base de données, concernant le CRUD des conseillers.
+ * @author Thomas T
+ *
+ */
 public class ConseillerDAO {
 	ConnexionDB connexion = new ConnexionDB();
 
+	/**Cette méthode eprmet de lire un conseiller dans la base de données 'proxibanquev2'. Cette méthode prend en paramètre :
+	 * @param login : le login du conseiller
+	 * @param password : le mot de passe du conseiller
+	 * @return un objet de type conseiller
+	 */
 	public Conseiller lireUnConseiller(String login, String password) {
 		ResultSet rs = null;
 
@@ -60,6 +69,10 @@ public class ConseillerDAO {
 		return conseiller;
 
 	}
+	/**Cette méthode eprmet de lire un conseiller dans la base de données 'proxibanquev2'. Cette méthode prend en paramètre :
+	 * @param idConseiller : l'id du conseiller
+	 * @return un objet de type conseiller
+	 */
 	public Conseiller lireUnConseillerById(int idConseiller) {
 		ResultSet rs = null;
 
