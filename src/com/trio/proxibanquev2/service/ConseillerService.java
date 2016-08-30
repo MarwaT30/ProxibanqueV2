@@ -21,11 +21,12 @@ public class ConseillerService {
 	public Conseiller lireUnConseillerById(int idConseiller){
 		 Conseiller conseiller=consDAO.lireUnConseillerById(idConseiller);
 		 conseiller.setListClient(clientDAO.lireTousLesClientsDunConseiller(conseiller));
+		 
 		 return conseiller;
 	}
 	
 	
-	public Conseiller lireUnConseillerById(String login, String password){
+	public Conseiller lireUnConseillerByLogin(String login, String password){
 		 Conseiller conseiller=consDAO.lireUnConseiller( login, password);
 		 conseiller.setListClient(clientDAO.lireTousLesClientsDunConseiller(conseiller));
 		 return conseiller;

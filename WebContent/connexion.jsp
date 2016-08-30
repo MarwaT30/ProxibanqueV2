@@ -29,10 +29,10 @@
 <body>
  <div class="container">
 
-      <form class="form-signin" role="form">
+      <form class="form-signin" role="form" Action=Authentification method="get">
         <h2 class="form-signin-heading">Connectez-vous</h2>
-        <input class="form-control" placeholder="Login" required="" autofocus="" type="login">
-        <input class="form-control" placeholder="Password" required="" type="password">
+        <input class="form-control" name="login" placeholder="Login" required="" autofocus="" type="login">
+        <input class="form-control" name="password" placeholder="Password" required="" type="password">
         
         
         <button class="btn btn-lg btn-primary btn-block" type="submit">Connexion</button>

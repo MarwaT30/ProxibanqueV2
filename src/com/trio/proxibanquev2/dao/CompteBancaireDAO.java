@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 
+import com.trio.proxibanquev2.Exception.DAOException;
 import com.trio.proxibanquev2.domaine.Adresse;
 import com.trio.proxibanquev2.domaine.Client;
 import com.trio.proxibanquev2.domaine.CompteBancaire;
@@ -218,6 +219,21 @@ public class CompteBancaireDAO {
 		}
 		return compte;
 
+	}
+	
+	public boolean modifierUnCompte(CompteBancaire compte) throws DAOException{
+		if(compte instanceof CompteCourant){
+			CompteCourant nouveauCompte = (CompteCourant) compte;
+			return modifierUnCompte(nouveauCompte);
+		}else if(compte instanceof CompteEpargne){
+			CompteEpargne nouveauCompte = (CompteEpargne) compte;
+			return modifierUnCompte(nouveauCompte);
+			
+		}else{
+			throw new DAOException ("Type de compte non géré par la DAO !");
+		}
+
+		
 	}
 
 	/**
