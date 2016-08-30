@@ -7,10 +7,23 @@ import com.trio.proxibanquev2.domaine.CompteCourant;
 import com.trio.proxibanquev2.domaine.CompteEpargne;
 import com.trio.proxibanquev2.domaine.Conseiller;
 
+/**
+ * Cette classe permet de vérifier si les informations de login et password
+ * fournies par l'interface web sont les mêmes que celles stockées en base de
+ * donnée
+ * 
+ * @author VincentB, BriceT, ThomasT
+ *
+ */
 public class AuthService {
 
 	private ConseillerDAO consDAO;
 
+	/**
+	 * Méthode permettant de vérifier si les informations de login et password
+	 * fournies par l'interface web sont les mêmes que celles stockées en base
+	 * de donnée
+	 */
 	public AuthService() {
 		this.consDAO = new ConseillerDAO();
 	}

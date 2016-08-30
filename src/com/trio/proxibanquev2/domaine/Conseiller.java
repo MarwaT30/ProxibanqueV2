@@ -117,7 +117,7 @@ public class Conseiller extends Humain {
 	public Conseiller() {
 		super();
 		this.login = "";
-		this.password = "";
+		this.password = null;
 		this.listClient = new ArrayList<Client>();
 		this.idConseiller = 0;
 	}

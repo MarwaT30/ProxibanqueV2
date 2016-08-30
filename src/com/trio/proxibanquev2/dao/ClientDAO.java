@@ -122,6 +122,46 @@ public class ClientDAO {
 		return client;
 
 	}
+	
+	/**
+	 * Cette méthode permet de lire l'id du dernier client entré (id max
+	 * suite à l'auto-incrément).
+	 * 
+	 * @return idClient : l'id du client
+	 */
+	public int lireIdDeLaDerniereAdresse() {
+		ResultSet rs = null;
+
+		String sql = "SELECT MAX (idClient) FROM client";
+		int idClient = 0;
+
+		try {
+			rs = connexion.creationConnexionBD().executeQuery(sql);
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+		}
+
+		try {
+			while (rs.next()) {
+				idClient = rs.getInt("idClient");
+			}
+
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+		} finally {
+			connexion.finConnexionBD();
+			try {
+				rs.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return idClient;
+
+	}
+	
 
 	/**
 	 * Cette méthode permet de mettre à jour un client dans une BD. Elle prend

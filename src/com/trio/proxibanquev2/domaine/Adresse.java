@@ -27,6 +27,7 @@ public class Adresse {
 	 * donnée,d'un numéro de rue, d'un type de rue; d'un nom de rue, d'un code
 	 * <p>
 	 * postal et d'un nom de ville.
+	 * 
 	 * @param idAdresse
 	 *            clé d'identification dans la base de données
 	 * @param numRue
@@ -189,4 +190,10 @@ public class Adresse {
 		this.ville = ville;
 	}
 
+	@Override
+	public String toString() {
+		String adresseComp = this.numRue + " " + this.typeDeRue + " " + this.nomDeRue + ", " + this.codePostal + " "
+				+ this.ville;
+		return adresseComp;
+	}
 }

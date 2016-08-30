@@ -20,7 +20,7 @@ public class ConseillerDAO {
 	public Conseiller lireUnConseiller(String login, String password) {
 		ResultSet rs = null;
 
-		String sql = "SELECT * FROM conseiller where identifiant = '" + login + "' AND motDePasse = '" + password
+		String sql = "SELECT * FROM conseiller where login = '" + login + "' AND password = '" + password
 				+ "'";
 
 		Conseiller conseiller = new Conseiller();

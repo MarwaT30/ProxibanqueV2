@@ -77,7 +77,7 @@ public class CompteEpargne extends CompteBancaire {
 	 */
 	public CompteEpargne() {
 		super();
-		this.tauxRemun = 0.3;
+		this.tauxRemun = 0.03;
 	}
 
 	/**
