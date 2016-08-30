@@ -68,7 +68,7 @@ public class AdresseDAO {
 	public int lireIdDeLaDerniereAdresse() {
 		ResultSet rs = null;
 
-		String sql = "SELECT MAX (idAdresse) FROM adresse";
+		String sql = "SELECT MAX(idAdresse) FROM adresse";
 		int idAdresse = 0;
 
 		try {
@@ -80,7 +80,7 @@ public class AdresseDAO {
 
 		try {
 			while (rs.next()) {
-				idAdresse = rs.getInt("idAdresse");
+				idAdresse = rs.getInt("MAX(idAdresse)");
 			}
 
 		} catch (SQLException e) {

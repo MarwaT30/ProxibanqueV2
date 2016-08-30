@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ResourceBundle;
 
 /**
  * Classe permettant la connexion à la base de données proxibanquev2 sur mySQL.
@@ -12,9 +13,10 @@ import java.sql.Statement;
  *
  */
 public class ConnexionDB {
-	static String url = "jdbc:mysql://localhost:3306/proxibanquev2?useSSL=false";
-	static String login = "root";
-	static String passwd = "";
+	ResourceBundle bundle = ResourceBundle.getBundle("com.trio.proxibanquev2.domaine.properties.config");
+	String url = bundle.getString("sgbd.url");
+	String login = bundle.getString("sgbd.login");
+	String passwd = bundle.getString("sgbd.password");
 	static Connection cn = null;
 	static Statement st = null;
 
@@ -27,7 +29,7 @@ public class ConnexionDB {
 
 		try {
 			// Etape 1 : Chargement du driver
-			Class.forName("com.mysql.jdbc.Driver");
+			Class.forName(bundle.getString("sgbd.driver"));
 			// Etape 2 : récupération de la connexion
 			cn = DriverManager.getConnection(url, login, passwd);
 			// Etape 3 : Création d'un statement

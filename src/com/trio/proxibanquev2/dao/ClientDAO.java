@@ -129,10 +129,10 @@ public class ClientDAO {
 	 * 
 	 * @return idClient : l'id du client
 	 */
-	public int lireIdDeLaDerniereAdresse() {
+	public int lireIdDuDernierClient() {
 		ResultSet rs = null;
 
-		String sql = "SELECT MAX (idClient) FROM client";
+		String sql = "SELECT MAX(idClient) FROM client";
 		int idClient = 0;
 
 		try {
@@ -144,7 +144,7 @@ public class ClientDAO {
 
 		try {
 			while (rs.next()) {
-				idClient = rs.getInt("idClient");
+				idClient = rs.getInt("MAX(idClient)");
 			}
 
 		} catch (SQLException e) {

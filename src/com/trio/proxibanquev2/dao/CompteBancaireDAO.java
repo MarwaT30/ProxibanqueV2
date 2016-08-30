@@ -439,7 +439,7 @@ public class CompteBancaireDAO {
 				String typeCompte = rs.getString("typeCompte");
 				double tauxRemun = rs.getDouble("TauxRemuneration");
 				double decouvertAutorise = rs.getDouble("decouvertAutorise");
-				if (typeCompte == "compte courant") {
+				if (typeCompte.equalsIgnoreCase("compte courant")) {
 					CompteCourant compte = new CompteCourant(idCompte, numCompte, solde, dateOuverture, idClient,
 							decouvertAutorise);
 					listeDesComptes.add(compte);
