@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+<title>Connexion</title>
 <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -29,7 +29,7 @@
 <body>
  <div class="container">
 
-      <form class="form-signin" role="form" Action=Authentification method="get">
+      <form class="form-signin" role="form" Action="Authentification" method="post">
         <h2 class="form-signin-heading">Connectez-vous</h2>
         <input class="form-control" name="login" placeholder="Login" required="" autofocus="" type="login">
         <input class="form-control" name="password" placeholder="Password" required="" type="password">
@@ -37,9 +37,7 @@
         
         <button class="btn btn-lg btn-primary btn-block" type="submit">Connexion</button>
       </form>
-<ul>
-  <li><a class="active" href="menu.jsp">Connexion</a></li>   
-</ul>
+
     </div> <!-- /container -->
 
 	<!-- Bootstrap core JavaScript

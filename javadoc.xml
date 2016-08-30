@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project default="javadoc">
+    <target name="javadoc">
+        <javadoc access="public" author="true" classpath="C:\Users\Stagiaire\.p2\pool\plugins\org.hamcrest.core_1.3.0.v201303031735.jar;C:\Users\Stagiaire\.p2\pool\plugins\org.junit_4.12.0.v201504281640\junit.jar;C:\Users\Stagiaire\Documents\ThomasT\Logiciel\mysql-connector-java-5.1.39\mysql-connector-java-5.1.39-bin.jar;WebContent/WEB-INF/lib/mysql-connector-java-5.1.39-bin.jar;C:\Users\Stagiaire\Documents\ThomasT\Logiciel\apache-tomcat-9.0.0.M9\lib\servlet-api.jar" destdir="doc" nodeprecated="false" nodeprecatedlist="false" noindex="false" nonavbar="false" notree="false" packagenames="com.trio.proxibanquev2.Exception,com.trio.proxibanquev2.domaine,com.trio.proxibanquev2.presentation,com.trio.proxibanquev2.service,com.trio.proxibanquev2.serviceTest,com.trio.proxibanquev2.dao" source="1.8" sourcepath="src" splitindex="true" use="true" version="true"/>
+    </target>
+</project>

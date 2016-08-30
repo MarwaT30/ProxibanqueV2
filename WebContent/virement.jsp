@@ -1,10 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+<%@ page import="com.trio.proxibanquev2.domaine.Conseiller"%>
+<%@ page import="com.trio.proxibanquev2.domaine.Client"%>
+<%@ page import="com.trio.proxibanquev2.presentation.Utilejsp"%>
+<%@ page import="com.trio.proxibanquev2.domaine.CompteBancaire"%>
+<%@ page import="java.util.ArrayList"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+<title>Virement</title>
 <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -28,98 +33,98 @@
     <!--[endif]---->
 </head>
 <body>
+<%
+		Conseiller user = (Conseiller) session.getAttribute("User");
+int numeroclient= (int) session.getAttribute("numClientObserve");
+ArrayList<CompteBancaire> listecomptebanque= (ArrayList<CompteBancaire>) session.getAttribute("listeCompteBanque");
+	%>
 <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-          <div class="container-fluid">
-              <div class="navbar-header"><button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button></div>
-              <div class="navbar-collapse collapse">
-                  <ul class="nav navbar-nav navbar-right">
-                     <li><a href="creerclient.jsp">Créer un client</a></li>
-                     <li><a href="editerclient.jsp">Editer un client</a></li>
-                     <li><a href="consultercompte.jsp">Consulter les comptes d'un client</a></li>
-                     <li><a href="virement.jsp">Effectuer un virement</a></li>
-                     <li><a href="connexion.jsp">Déconnexion</a></li>
-                  </ul>
-              </div>
-          </div>
-      </div><!-- Bootstrap core JavaScript
-    ================================================== --><!-- Placed at the end of the document so the pages load faster --><script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script><script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-      <ul style="" class="dropdown-menu" role="menu" aria-labelledby="userid"></ul>
-      <ul style="" class="dropdown-menu" role="menu" aria-labelledby="userid"></ul>
-      <li role="presentation" class="dropdown-header">
-          <ul class="nav nav-pills text-left">
-              <li class="dropdown">
-                  <a class="dropdown-toggle btn-lg navbar-link" data-toggle="dropdown" href="#">Choix du client débiteur <span class="caret"></span></a>
-                  <ul class="dropdown-menu" role="menu">
-                      <li><a href="#">Client 1</a></li>
-                      <li><a href="#">Client 2</a></li>
-                      <li><a href="#">Client 3</a></li>
-                      <li><a href="#">Client 4</a></li>
-                      <li><a href="#">Client 5</a></li>
-                      <li><a href="#">Client 6</a></li>
-                      <li><a href="#">Client 7</a></li>
-                      <li><a href="#">Client 8</a></li>
-                      <li><a href="#">Client 9</a></li>
-                      <li><a href="#">Client 10</a></li>
-                  </ul>
-              </li>
-          </ul>
-      </li>
-      <li role="presentation" class="dropdown-header">
-          <ul class="nav nav-pills">
-              <li class="dropdown">
-                  <a class="dropdown-toggle btn-lg navbar-link" data-toggle="dropdown" href="#">Choix du compte débiteur <span class="caret"></span></a>
-                  <ul class="dropdown-menu" role="menu">
-                      <li><a href="#">Compte Courant</a></li>
-                      <li><a href="#">Compte Epargne</a></li>
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
+					<span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span>
+				</button>
+
+			</div>
+			<div class="navbar-collapse collapse">
+				<ul class="nav navbar-nav navbar-right">
+					<li><a href="creerclient.jsp">Créer un client</a></li>                      
+                      <li><a href="menu.jsp">Menu principal</a></li>                      
                       
-                  </ul>
-              </li>
-          </ul>
-      </li>
-      <li role="presentation" class="dropdown-header">
-          <ul class="nav nav-pills">
-              <li class="dropdown">
-                  <a class="dropdown-toggle btn-lg navbar-link" data-toggle="dropdown" href="#">Choix du client créditeur <span class="caret"></span></a>
-                  <ul class="dropdown-menu" role="menu">
-                      <li><a href="#">Client 1</a></li>
-                      <li><a href="#">Client 2</a></li>
-                      <li><a href="#">Client 3</a></li>
-                      <li><a href="#">Client 4</a></li>
-                      <li><a href="#">Client 5</a></li>
-                      <li><a href="#">Client 6</a></li>
-                      <li><a href="#">Client 7</a></li>
-                      <li><a href="#">Client 8</a></li>
-                      <li><a href="#">Client 9</a></li>
-                      <li><a href="#">Client 10</a></li>
-                  </ul>
-              </li>
-          </ul>
-      </li>
-      <li role="presentation" class="dropdown-header">
-          <ul class="nav nav-pills">
-              <li class="dropdown">
-                  <a class="dropdown-toggle btn-lg navbar-right navbar-link" data-toggle="dropdown" href="#">Choix du compte créditeur <span class="caret"></span></a>
-                  <ul class="dropdown-menu" role="menu">
-                      <li><a href="#">Compte Client</a></li>
-                      <li><a href="#">Compte Epargne</a></li>
-                      
-                  </ul>
-              </li>
-          </ul>
-      </li>
-      
-      <form role="form">
-          <div class="input-group">          
-              <label for="exampleInputEmail1">Solde du compte débiteur</label>
-              <input class="form-control" readonly id="exampleInputEmail1" type="texte">              
-          </div>
-          <div class="input-group">
-              <label for="exampleInputPassword1">Somme à transférer</label>
-              <input class="form-control" id="exampleInputPassword1" type="texte">
-          </div>
-         
-         
-          <button type="submit" class="btn btn-default">Valider</button>
+				</ul>
+			</div>
+		</div>
+	</div>
+        <br>
+        <br>        
+        <br>
+        <br>
+        <br>
+        
+        
+        <br>
+        <br>
+       
+       
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                       
+                        <th>Nom</th>
+                        <th>Prenom</th>
+                        <th>n°compte</th>
+                        <th>Date d'ouverture</th>
+                        <th>Solde</th>
+                        <th>Type de compte</th>
+                    </tr>
+                </thead>
+                <tbody>
+				
+					<%=Utilejsp.tableauCompteClientDebiteur(user.getListClient().get(numeroclient)) %>
+					
+				</tbody>
+                </table>
+        </div>
+        <br>
+        <br>
+            <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                       
+                        <th>Ligne</th>
+                        <th>id client</th>
+                        <th>n°compte</th>
+                        <th>Date d'ouverture</th>
+                        <th>Solde</th>
+                        <th>type de compte</th>
+                    </tr>
+                </thead>
+                <tbody>
+				
+					<%=Utilejsp.tableauCompteBanque(listecomptebanque) %>
+					
+				</tbody>
+                </table>
+                </table>
+        </div>
+        <br>
+        <br>
+        <center>
+		 <form class="form-signin" role="form" action="ChoixClient" method="get">
+		 <input type="radio" name="compte" id="courant" value="courant"> courant<br>
+  		 <input type="radio" name="compte" id="epargne" value="epargne" checked="checked"> epargne<br>
+        <h4>Solde à transférer:</h4>        
+        <input class="input-control" name="montant" placeholder="solde à transférer" required="" autofocus="" type="login">
+        <h4>Choisir le n° de ligne du client</h4>
+        <input class="input-control" name="lignecompte" placeholder="n° de ligne du client" required="" autofocus="" type="login"><br>
+        <br>
+             
+        
+        <button class="btn btn-lg btn-primary" type="submit">Transférer</button>
       </form>
+      </center>
+       
 </body>
 </html>

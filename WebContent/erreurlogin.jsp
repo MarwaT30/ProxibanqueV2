@@ -8,7 +8,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="editor" content="brix.io">
             
-        <title>My page</title>
+        <title>Erreur</title>
                     
         <!-- Bootstrap -->
         <link href="https://netdna.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet">
@@ -32,8 +32,20 @@
         <script src="https://netdna.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
 </head>
 <body>
-<textarea class="form-control text-center" style="margin: 0px -2px 0px 0px; width: 693px; height: 54px;">Text</textarea>
+<br>
+        <br>
+        <br>
+<center>
+<textarea class="form-control text-center" style="margin: auto; width: 693px; height: 54px;">Le nom d'utilisateur ou le mot de passe saisi est inccorect</textarea>
+        </center>
+        <br>
+        <br>
+        <br>
+        <center>
+        <form class="form-signin" role="form" action="connexion.jsp" method="post">                  
         
-        <button type="button" class="btn btn-default btn-lg">Button</button>
+        <button class="btn btn-lg btn-primary" type="submit">Réessayer</button>
+      </form>
+      </center>
 </body>
 </html>

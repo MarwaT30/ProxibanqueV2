@@ -1,10 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+<%@ page import="com.trio.proxibanquev2.domaine.Conseiller"%>
+<%@ page import="com.trio.proxibanquev2.domaine.Client"%>
+<%@ page import="com.trio.proxibanquev2.presentation.Utilejsp"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+<title>Consulter les comptes</title>
 <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -27,16 +30,17 @@
     <!--[endif]---->
 </head>
 <body>
+<%
+		Conseiller user = (Conseiller) session.getAttribute("User");
+	%>
 <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
           <div class="container-fluid">
               <div class="navbar-header"><button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button></div>
               <div class="navbar-collapse collapse">
                   <ul class="nav navbar-nav navbar-right">
-                  	  <li><a href="creerclient.jsp">Créer un client</a></li>
-                      <li><a href="editerclient.jsp">Editer un client</a></li>
-                      <li><a href="consultercompte.jsp">Consulter les comptes d'un client</a></li>
-                      <li><a href="virement.jsp">Effectuer un virement</a></li>
-                      <li><a href="connexion.jsp">Déconnexion</a></li>
+                  	  <li><a href="creerclient.jsp">Créer un client</a></li>                      
+                      <li><a href="menu.jsp">Menu principal</a></li>                      
+                      
                   </ul>
               </div>
           </div>
@@ -49,16 +53,8 @@
               <li class="dropdown">
                   <a class="dropdown-toggle btn-lg navbar-brand" data-toggle="dropdown" href="#">Choix du client <span class="caret"></span></a>
                   <ul class="dropdown-menu" role="menu">
-                      <li><a href="#">Client 1</a></li>
-                      <li><a href="#">Client 2</a></li>
-                      <li><a href="#">Client 3</a></li>
-                      <li><a href="#">Client 4</a></li>
-                      <li><a href="#">Client 5</a></li>
-                      <li><a href="#">Client 6</a></li>
-                      <li><a href="#">Client 7</a></li>
-                      <li><a href="#">Client 8</a></li>
-                      <li><a href="#">Client 9</a></li>
-                      <li><a href="#">Client 10</a></li>
+                      <%=Utilejsp.listeDeroulanteClientUser(user.getListClient())%>
+				</ul></li>
                   </ul>
               </li>
           </ul>

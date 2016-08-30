@@ -1,10 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+
+<%@ page import="com.trio.proxibanquev2.domaine.Conseiller"%>
+<%@ page import="com.trio.proxibanquev2.domaine.Client"%>
+<%@ page import="com.trio.proxibanquev2.presentation.Utilejsp"%>
+<%@ page import="com.trio.proxibanquev2.domaine.Adresse"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+<title>Créer un client</title>
 <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -27,38 +32,71 @@
     <!--[endif]---->
 </head>
 <body>
+<%
+		Conseiller user = (Conseiller) session.getAttribute("User");
+	
+	%>
+	
 <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
           <div class="container-fluid">
               <div class="navbar-header"><button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button></div>
               <div class="navbar-collapse collapse">
                   <ul class="nav navbar-nav navbar-right">
-                     <li><a href="creerclient.jsp">Créer un client</a></li>
-                     <li><a href="editerclient.jsp">Editer un client</a></li>
-                     <li><a href="consultercompte.jsp">Consulter les comptes d'un client</a></li>
-                     <li><a href="virement.jsp">Effectuer un virement</a></li>
-                     <li><a href="connexion.jsp">Déconnexion</a></li>
+                     <li><a href="creerclient.jsp">Créer un client</a></li>                      
+                      <li><a href="menu.jsp">Menu principal</a></li>                      
+                      
                   </ul>
               </div>
           </div>
       </div>
 <center>
- <form role="form">
+ <form role="form" Action="CreationClient" method="post"">
           <div class="input-group">
-              <label for="exampleInputEmail1">Nom</label>
-              <input class="form-control" id="exampleInputEmail1" placeholder="Nom" type="texte">
-          </div>
-          <div class="input-group">
-              <label for="exampleInputPassword1">Prénom</label>
-              <input class="form-control" id="exampleInputPassword1" placeholder="Prénom" type="texte">
-          </div>
-          <div class="input-group">
-              <label for="exampleInputPassword1">Email</label>
-              <input class="form-control" id="exampleInputPassword1" placeholder="Email" type="texte">
-          </div>
-          <div class="input-group">
-              <label for="exampleInputPassword1">Adresse</label>
-              <input class="form-control" id="exampleInputPassword1" placeholder="Adresse" type="adresse">
-          </div>
+				<label for="nom">Nom</label> <input 
+					class="form-control" name=nom 
+					placeholder="Nom" type="texte">
+					
+			</div>
+			<div class="input-group">
+				<label for="prenom">Prénom</label> <input 
+					class="form-control" name=prenom id="prenom"
+					placeholder="Prénom" type="texte">
+			</div>
+			<div class="input-group">
+				<label for="mail">Email</label> <input 
+					class="form-control" name=mail id="mail"
+					placeholder="Email" type="texte">
+			</div>
+			<div class="input-group">
+				<label for="telephone">telephone</label> <input 
+					class="form-control" name=telephone id="telephone"
+					placeholder="Adresse" type="texte">
+			</div>
+			<div class="input-group">
+				<label for="numRue">numero de rue</label> <input 
+					class="form-control" name=numRue id="numRue"
+					placeholder="Adresse" type="texte">
+			</div>
+			<div class="input-group">
+				<label for="typeDeRue">type de rue</label> <input 
+					class="form-control" name=typeDeRue id="typeDeRue"
+					placeholder="Adresse" type="texte">
+			</div>
+			<div class="input-group">
+				<label for="nomDeRue">nom de rue</label> <input 
+					class="form-control" name=nomDeRue id="nomDeRue"
+					placeholder="Adresse" type="texte">
+			</div>
+			<div class="input-group">
+				<label for="codePostal">code postal</label> <input 
+					class="form-control" name=codePostal id="codePostal"
+					placeholder="Adresse" type="text">
+			</div>
+			<div class="input-group">
+				<label for="ville">ville</label> <input 
+					class="form-control" name=ville id="ville"
+					placeholder="Adresse" type="texte">
+			</div>
          
           <button type="submit" class="btn btn-default">Créer</button>
       </form>

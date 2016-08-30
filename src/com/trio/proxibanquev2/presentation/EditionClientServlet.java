@@ -58,26 +58,30 @@ public class EditionClientServlet extends HttpServlet {
 		String numRue=request.getParameter("numRue");
 		String typeDeRue=request.getParameter("typeDeRue");
 		String nomDeRue=request.getParameter("nomDeRue");
-		int codepostal=Integer.parseInt(request.getParameter("codepostal"));
+		int codePostal=Integer.parseInt(request.getParameter("codePostal"));
 		String ville=request.getParameter("ville");
-		int ordreclientliste=Integer.parseInt(request.getParameter("clientNum"));
-		
-		
 		HttpSession maSession=request.getSession();
+		
+		int ordreclientliste=(int) maSession.getAttribute("numClientObserve");
+		
+		
 		Conseiller user=(Conseiller) maSession.getAttribute("User");
 		
 		Client clientEdite =user.getListClient().get(ordreclientliste);
 		clientEdite.setNom(nom);
 		clientEdite.setPrenom(prenom);
 		clientEdite.setMail(mail);
-		clientEdite.setAdresse(new Adresse(clientEdite.getAdresse().getIdAdresse(),numRue,typeDeRue,nomDeRue,codepostal,ville));
+		clientEdite.setAdresse(new Adresse(clientEdite.getAdresse().getIdAdresse(),numRue,typeDeRue,nomDeRue,codePostal,ville));
 		RequestDispatcher dispatcher;
 		
 		if(clientServ.modifierUnClient(clientEdite)){
-			dispatcher= request.getRequestDispatcher("menu.jsp");
+			
+			dispatcher= request.getRequestDispatcher("pageclient.jsp");
 			//maSession.setAttribute("User", user);
 		}else{
+			clientEdite =clientServ.lireUnClient(clientEdite.getIdClient());
 			dispatcher= request.getRequestDispatcher("erreur.jsp");	
+			//maSession.setAttribute("User", user);
 		}
 		
 
