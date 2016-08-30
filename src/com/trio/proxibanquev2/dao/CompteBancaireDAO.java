@@ -220,20 +220,19 @@ public class CompteBancaireDAO {
 		return compte;
 
 	}
-	
-	public boolean modifierUnCompte(CompteBancaire compte) throws DAOException{
-		if(compte instanceof CompteCourant){
+
+	public boolean modifierUnCompte(CompteBancaire compte) throws DAOException {
+		if (compte instanceof CompteCourant) {
 			CompteCourant nouveauCompte = (CompteCourant) compte;
 			return modifierUnCompte(nouveauCompte);
-		}else if(compte instanceof CompteEpargne){
+		} else if (compte instanceof CompteEpargne) {
 			CompteEpargne nouveauCompte = (CompteEpargne) compte;
 			return modifierUnCompte(nouveauCompte);
-			
-		}else{
-			throw new DAOException ("Type de compte non géré par la DAO !");
+
+		} else {
+			throw new DAOException("Type de compte non géré par la DAO !");
 		}
 
-		
 	}
 
 	/**
@@ -439,6 +438,62 @@ public class CompteBancaireDAO {
 				String typeCompte = rs.getString("typeCompte");
 				double tauxRemun = rs.getDouble("TauxRemuneration");
 				double decouvertAutorise = rs.getDouble("decouvertAutorise");
+				if (typeCompte.equalsIgnoreCase("compte courant")) {
+					CompteCourant compte = new CompteCourant(idCompte, numCompte, solde, dateOuverture, idClient,
+							decouvertAutorise);
+					listeDesComptes.add(compte);
+
+				} else {
+					CompteEpargne compte = new CompteEpargne(idCompte, numCompte, solde, dateOuverture, idClient,
+							tauxRemun);
+					listeDesComptes.add(compte);
+				}
+
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			connexion.finConnexionBD();
+			try {
+
+				rs.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return listeDesComptes;
+
+	}
+
+	/**
+	 * Cette méthode epermet de créer une liste de tous les comptes bancaires
+	 * 
+	 * 
+	 *
+	 * @return une liste d'objet de type compte bancaire.
+	 */
+	public ArrayList<CompteBancaire> lireTousLesComptesBancaire() {
+
+		ResultSet rs = null;
+
+		// création de la liste
+		ArrayList<CompteBancaire> listeDesComptes = new ArrayList<CompteBancaire>();
+
+		try {
+
+			String sql = "SELECT * FROM comptebancaire WHERE 1";
+
+			rs = connexion.creationConnexionBD().executeQuery(sql);
+
+			while (rs.next()) {
+				int idCompte = rs.getInt("idCompte");
+				int numCompte = rs.getInt("numCompte");
+				String dateOuverture = rs.getString("dateOuverture");
+				double solde = rs.getDouble("solde");
+				String typeCompte = rs.getString("typeCompte");
+				double tauxRemun = rs.getDouble("TauxRemuneration");
+				double decouvertAutorise = rs.getDouble("decouvertAutorise");
+				int idClient = rs.getInt("idClient");
 				if (typeCompte.equalsIgnoreCase("compte courant")) {
 					CompteCourant compte = new CompteCourant(idCompte, numCompte, solde, dateOuverture, idClient,
 							decouvertAutorise);
